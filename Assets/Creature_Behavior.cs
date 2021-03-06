@@ -5,6 +5,7 @@ using UnityEngine;
 public class Creature_Behavior : MonoBehaviour
 {
     public float smellRadius;
+    public float speed;
     public PlantManager plantManager;
 
     // Start is called before the first frame update
@@ -16,7 +17,12 @@ public class Creature_Behavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
 
+    void FixedUpdate()
+    {
+        SniffFood();
     }
 
     List<Vector2> Smell()
@@ -31,5 +37,31 @@ public class Creature_Behavior : MonoBehaviour
             }
         }
         return smelledPlants;
+    }
+    void Eat()
+    {
+        return;
+    }
+
+    void SniffFood()
+    {
+        List<Vector2> plants = Smell();
+        if(plants.Count == 0) return;
+        Vector2 closest = plants[0];
+        foreach(Vector2 plant in plants)
+        {
+            if(plant.magnitude < closest.magnitude)
+            {
+                closest = plant;
+            }
+        }
+        if(closest.magnitude > 0)
+        {
+            transform.position += speed * (Vector3) closest.normalized;
+        }
+        else{
+            Eat();
+        }
+
     }
 }
