@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Creature_Behavior : MonoBehaviour
+public class CreatureBehavior : MonoBehaviour
 {
     public float smellRadius;
     public float speed;
