@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creaturePrefab: {fileID: 0}
-  creatures: []
+  creatures:
+  - {fileID: 753774229}
 --- !u!4 &114324323
 Transform:
   m_ObjectHideFlags: 0
@@ -265,6 +266,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9305178c05f88484b942894f4e45d8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &753774229 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5509967980973590055, guid: b57492c090975e447aabc804c1370e38, type: 3}
+  m_PrefabInstance: {fileID: 5509967982127946357}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1051064818
 GameObject:
   m_ObjectHideFlags: 0
