@@ -5,8 +5,10 @@ using UnityEngine;
 public class CreatureBehavior : MonoBehaviour
 {
     public float smellRadius;
+    public float food;
     public float speed;
     public PlantManager plantManager;
+    public CreatureManager creatureManager;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +19,7 @@ public class CreatureBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -64,4 +66,19 @@ public class CreatureBehavior : MonoBehaviour
         }
 
     }
+    void Reproduce()
+    {
+        food = food / 2;
+        creatureManager.Clone(gameObject);
+    }
+    void Prioritize1()
+    {
+    }
+    class Behaviour
+    {
+        Func< List<Vector2>> sense;
+        Action<List <Vector2>> motor;
+        Action decide;
+    }
+
 }
