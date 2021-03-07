@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlantManager : MonoBehaviour
 {
     public List<GameObject> plants;
+    public GameObject plantPrefab;
+
+
     private float eatingRadius;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +36,10 @@ public class PlantManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void NewPlantAt(Vector2 location)
+    {
+        plants.Add(Instantiate(plantPrefab, location, Quaternion.identity, transform));
     }
 }
