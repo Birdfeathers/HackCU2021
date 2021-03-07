@@ -14,6 +14,10 @@ public class PlantManager : MonoBehaviour
     void Start()
     {
         eatingRadius = .5f;
+        for(int i = 0; i < 25; i++)
+        {
+            NewPlantAt(Random.insideUnitCircle* 6);
+        }
     }
 
     // Update is called once per frame
