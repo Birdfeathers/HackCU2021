@@ -78,7 +78,9 @@ public class CreatureBehavior : MonoBehaviour
         if(closest.magnitude > 0.1)
         {
             transform.position += speed * (Vector3) closest.normalized;
-            angle = Mathf.Acos(closest.normalized.x);
+            float newAngle = Mathf.Acos(closest.normalized.x);
+            if (closest.y < 0) { newAngle = -newAngle; } //need y to uniquely determine angle.
+            angle = newAngle;
         }
         else{
             Eat();
