@@ -8,6 +8,9 @@ public class CreatureManager : MonoBehaviour
     public GameObject creaturePrefab;
     public List<GameObject> creatures;
     public int time;
+    public float colorMutability; //how much it should mutate each channel from previous, as a multiplier
+    public float mutability;
+
     private StreamWriter log;
     // Start is called before the first frame update
     void Start()
@@ -58,7 +61,12 @@ public class CreatureManager : MonoBehaviour
     }
     float TransformNumber(float number)
     {
-        number += Random.Range(-.5f *number, .5f * number);
+        number += Random.Range(-mutability *number, mutability * number);
+        return number;
+    }
+    float TransformNumber(float number, float factor)
+    {
+        number += Random.Range(-factor * number, factor * number);
         return number;
     }
     void Mutate(CreatureBehavior creature)
@@ -67,6 +75,14 @@ public class CreatureManager : MonoBehaviour
         creature.full = TransformNumber(creature.full);
         creature.speed = TransformNumber(creature.speed);
         creature.smellRadius = TransformNumber(creature.smellRadius);
+        Color oldColor = creature.gameObject.GetComponent<SpriteRenderer>().color;
+        Color newColor = new Color
+            (
+            TransformNumber(oldColor.r, colorMutability),
+            TransformNumber(oldColor.g, colorMutability),
+            TransformNumber(oldColor.b, colorMutability)
+            );
+        creature.gameObject.GetComponent<SpriteRenderer>().color = newColor;
 
     }
 

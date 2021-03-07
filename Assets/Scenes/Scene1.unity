@@ -156,6 +156,8 @@ MonoBehaviour:
   creatures:
   - {fileID: 753774229}
   time: 0
+  colorMutability: 0.1
+  mutability: 0.5
 --- !u!4 &114324323
 Transform:
   m_ObjectHideFlags: 0
@@ -379,6 +381,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 0617bc9576367e641ac9f8f558e943c4, type: 3}
+    - target: {fileID: 5509967980973590049, guid: b57492c090975e447aabc804c1370e38, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6226415
+      objectReference: {fileID: 0}
+    - target: {fileID: 5509967980973590049, guid: b57492c090975e447aabc804c1370e38, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6226415
+      objectReference: {fileID: 0}
+    - target: {fileID: 5509967980973590049, guid: b57492c090975e447aabc804c1370e38, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6226415
+      objectReference: {fileID: 0}
     - target: {fileID: 5509967980973590054, guid: b57492c090975e447aabc804c1370e38, type: 3}
       propertyPath: food
       value: 12
