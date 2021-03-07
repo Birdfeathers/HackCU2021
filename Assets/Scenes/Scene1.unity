@@ -304,6 +304,7 @@ MonoBehaviour:
   plants: []
   plantPrefab: {fileID: 6011919087448885862, guid: 08a264ab3216ced4eb692de7d54e66de, type: 3}
   MaxPlants: 250
+  breathingRoom: 0.8
 --- !u!4 &1051064820
 Transform:
   m_ObjectHideFlags: 0
