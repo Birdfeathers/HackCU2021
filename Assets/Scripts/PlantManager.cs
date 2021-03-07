@@ -8,6 +8,7 @@ public class PlantManager : MonoBehaviour
     public GameObject plantPrefab;
     public int MaxPlants;
     public float breathingRoom;
+    public float plantfactor = .5f;
 
 
     private float eatingRadius;
@@ -18,7 +19,7 @@ public class PlantManager : MonoBehaviour
         eatingRadius = .5f;
         for(int i = 0; i < 25; i++)
         {
-            if (NewPlantAt(Random.insideUnitCircle * 6))
+            if (NewPlantAt(Random.insideUnitCircle * 6 ))
             {
                 PlantBehavior plant = plants[i].GetComponent<PlantBehavior>();
                 plant.timeTillGrowth = plant.growthTime - Random.Range(0, plant.growthTime);//random growth left for organicness
@@ -49,6 +50,22 @@ public class PlantManager : MonoBehaviour
         return false;
     }
 
+    public bool NewPlantAt(Vector2 location, GameObject p)
+    {
+        if (plants.Count > MaxPlants) { return false; }
+        foreach(GameObject plant in plants)
+        {
+            if (Vector2.Distance(plant.transform.position, location) < breathingRoom) { return false; }
+        }
+        //PlantBehavior clone = Instantiate(plantPrefab, location, Quaternion.identity, transform).GetComponent<Behavior>();
+        //plants.Add(Instantiate(plantPrefab, location, Quaternion.identity, transform));
+
+        PlantBehavior clone = Instantiate(p, transform).GetComponent<PlantBehavior>();
+        clone.transform.position = location;
+        clone.growthTime  += Random.Range(- Mathf.RoundToInt(plantfactor* clone.growthTime) , Mathf.RoundToInt(plantfactor * clone.growthTime));
+        plants.Add(clone.gameObject);
+        return true;
+    }
     public bool NewPlantAt(Vector2 location)
     {
         if (plants.Count > MaxPlants) { return false; }

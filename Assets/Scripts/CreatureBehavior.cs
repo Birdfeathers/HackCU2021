@@ -35,7 +35,7 @@ public class CreatureBehavior : MonoBehaviour
     void FixedUpdate()
     {
         if(food < 0) Die();
-        food -= .005f;
+        food -= .5f * speed;
         Prioritize1();
         //SniffFood();
     }

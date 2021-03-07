@@ -30,6 +30,6 @@ public class PlantBehavior : MonoBehaviour
     {
         //new plant between .8 and 1.5 units away
         Vector2 randomVector = Random.insideUnitCircle;
-        plantManager.NewPlantAt((0.7f * randomVector) + (.8f * randomVector.normalized) + (Vector2) transform.position);
+        plantManager.NewPlantAt((0.7f * randomVector) + (.8f * randomVector.normalized) + (Vector2) transform.position, gameObject);
     }
 }
