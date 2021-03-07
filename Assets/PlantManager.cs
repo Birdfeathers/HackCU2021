@@ -6,6 +6,7 @@ public class PlantManager : MonoBehaviour
 {
     public List<GameObject> plants;
     public GameObject plantPrefab;
+    public int MaxPlants;
 
 
     private float eatingRadius;
@@ -44,6 +45,7 @@ public class PlantManager : MonoBehaviour
 
     public void NewPlantAt(Vector2 location)
     {
+        if(plants.Count  > MaxPlants) return;
         foreach(GameObject plant in plants)
         {
             if (Vector2.Distance(plant.transform.position, location) < 1) { return; }

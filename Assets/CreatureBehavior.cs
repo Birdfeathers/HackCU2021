@@ -17,7 +17,8 @@ public class CreatureBehavior : MonoBehaviour
     void Start()
     {
 
-        full = 10;
+        //full = 10;
+
     }
 
     // Update is called once per frame
@@ -28,7 +29,8 @@ public class CreatureBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        food -= .01f;
+        if(food < 0) Die();
+        food -= .005f;
         Prioritize1();
         //SniffFood();
     }
@@ -52,7 +54,7 @@ public class CreatureBehavior : MonoBehaviour
         {
             food++;
         }
-        print(food);
+        //print(food);
         return;
     }
 
@@ -82,6 +84,10 @@ public class CreatureBehavior : MonoBehaviour
         food = food / 2;
         creatureManager.Clone(gameObject);
 
+    }
+    void Die()
+    {
+        creatureManager.DeleteSelf(gameObject);
     }
     void Prioritize1()
     {
