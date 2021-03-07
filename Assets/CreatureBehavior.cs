@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using System;
+
 
 public class CreatureBehavior : MonoBehaviour
 {
@@ -13,13 +13,16 @@ public class CreatureBehavior : MonoBehaviour
     public float full;
     public float angle; //angle in radians that the creature goes when unsure where to go
     public float angleChange;
+
+
+
     //System.Random rnd = new System.Random();
 
     // Start is called before the first frame update
     void Start()
     {
 
-        //full = 10;
+
 
     }
 
@@ -87,6 +90,8 @@ public class CreatureBehavior : MonoBehaviour
     {
         food = food / 2;
         creatureManager.Clone(gameObject);
+
+
 
     }
     void Die()

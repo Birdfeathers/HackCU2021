@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class CreatureManager : MonoBehaviour
 {
     public GameObject creaturePrefab;
     public List<GameObject> creatures;
+    public int time;
+    private StreamWriter log;
     // Start is called before the first frame update
     void Start()
     {
-        //print("Status at Start----");
-        //GenerateReport();
+        time = 0;
+        File.Create("log.txt").Dispose();
+        log = File.AppendText("log.txt");
     }
     // Update is called once per frame
     void Update()
@@ -21,6 +25,11 @@ public class CreatureManager : MonoBehaviour
         }
 
     }
+    void FixedUpdate()
+    {
+        time++;
+    }
+
     void GenerateReport()
     {
         float totalSpeed = 0, totalFull = 0, totalSmellRange= 0;
@@ -40,6 +49,9 @@ public class CreatureManager : MonoBehaviour
     }
     public void DeleteSelf(GameObject creature)
     {
+        CreatureBehavior B = creature.GetComponent<CreatureBehavior>();
+        log.Write($"Remove|| Speed{B.speed}; Full {B.full}; smell{B.smellRadius}\n" );
+        log.Flush();
         creatures.Remove(creature);
         Destroy(creature);
         return;
@@ -64,6 +76,8 @@ public class CreatureManager : MonoBehaviour
         clone.transform.position += (Vector3) Random.insideUnitCircle.normalized*clone.speed*100;
         Mutate(clone);
         creatures.Add(clone.gameObject);
+        log.Write($"Add|| Speed{clone.speed}; Full {clone.full}; smell{clone.smellRadius}\n" );
+        log.Flush();
         return clone;
     }
 
