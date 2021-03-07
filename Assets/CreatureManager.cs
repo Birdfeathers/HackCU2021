@@ -73,7 +73,7 @@ public class CreatureManager : MonoBehaviour
     public CreatureBehavior Clone(GameObject creature)
     {
         CreatureBehavior clone = Instantiate(creature, transform).GetComponent<CreatureBehavior>();
-        clone.transform.position += (Vector3) Random.insideUnitCircle.normalized*clone.speed*100;
+        clone.transform.position += (Vector3) Random.insideUnitCircle.normalized;
         Mutate(clone);
         creatures.Add(clone.gameObject);
         log.Write($"Add|| Speed{clone.speed}; Full {clone.full}; smell{clone.smellRadius}\n" );
