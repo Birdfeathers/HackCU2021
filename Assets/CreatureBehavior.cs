@@ -40,6 +40,7 @@ public class CreatureBehavior : MonoBehaviour
     }
     void Eat()
     {
+        plantManager.DeleteClosest(transform.position);
         return;
     }
 
@@ -55,7 +56,7 @@ public class CreatureBehavior : MonoBehaviour
                 closest = plant;
             }
         }
-        if(closest.magnitude > 0)
+        if(closest.magnitude > 0.001)
         {
             transform.position += speed * (Vector3) closest.normalized;
         }
