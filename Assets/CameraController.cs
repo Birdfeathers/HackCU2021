@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private new Camera camera;
-    private const float SCROLL_SCALE = 3f;
+    private const float SCROLL_SCALE = 1.5f;
     private Vector2 lastMouse;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        camera.orthographicSize -= SCROLL_SCALE * Input.GetAxis("Mouse ScrollWheel");
+        camera.orthographicSize -= SCROLL_SCALE * Input.GetAxis("Mouse ScrollWheel") * camera.orthographicSize;
         Vector2 newMouse = camera.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetButton("LeftClick"))
         {
