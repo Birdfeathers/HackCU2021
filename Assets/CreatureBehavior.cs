@@ -11,6 +11,8 @@ public class CreatureBehavior : MonoBehaviour
     public PlantManager plantManager;
     public CreatureManager creatureManager;
     public float full;
+    public float angle; //angle in radians that the creature goes when unsure where to go
+    public float angleChange;
     //System.Random rnd = new System.Random();
 
     // Start is called before the first frame update
@@ -73,6 +75,7 @@ public class CreatureBehavior : MonoBehaviour
         if(closest.magnitude > 0.1)
         {
             transform.position += speed * (Vector3) closest.normalized;
+            angle = Mathf.Acos(closest.normalized.x);
         }
         else{
             Eat();
@@ -100,7 +103,8 @@ public class CreatureBehavior : MonoBehaviour
         {
             if(!SniffFood())
             {
-                transform.position += speed * (Vector3) Random.insideUnitCircle.normalized;
+                transform.position += speed * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle));
+                angle += Random.Range(-angleChange, angleChange);
             }
         }
     }

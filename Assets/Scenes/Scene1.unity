@@ -376,6 +376,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5509967980973590054, guid: b57492c090975e447aabc804c1370e38, type: 3}
+      propertyPath: angleChange
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5509967980973590054, guid: b57492c090975e447aabc804c1370e38, type: 3}
       propertyPath: plantManager
       value: 
       objectReference: {fileID: 1051064819}
