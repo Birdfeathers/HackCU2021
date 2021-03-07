@@ -155,6 +155,7 @@ MonoBehaviour:
   creaturePrefab: {fileID: 0}
   creatures:
   - {fileID: 753774229}
+  time: 0
 --- !u!4 &114324323
 Transform:
   m_ObjectHideFlags: 0
@@ -207,7 +208,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.59486, g: 0.56804025, b: 0.6509434, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -373,6 +374,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5509967980973590049, guid: b57492c090975e447aabc804c1370e38, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0617bc9576367e641ac9f8f558e943c4, type: 3}
     - target: {fileID: 5509967980973590054, guid: b57492c090975e447aabc804c1370e38, type: 3}
       propertyPath: food
       value: 12
