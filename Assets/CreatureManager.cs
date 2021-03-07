@@ -15,6 +15,10 @@ public class CreatureManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetButtonDown("Enter"))
+        {
+            GenerateReport();
+        }
 
     }
     void GenerateReport()

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+//using System;
 
 public class CreatureBehavior : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class CreatureBehavior : MonoBehaviour
     public PlantManager plantManager;
     public CreatureManager creatureManager;
     public float full;
-    System.Random rnd = new System.Random();
+    //System.Random rnd = new System.Random();
 
     // Start is called before the first frame update
     void Start()
@@ -58,10 +58,10 @@ public class CreatureBehavior : MonoBehaviour
         return;
     }
 
-    void SniffFood()
+    bool SniffFood()
     {
         List<Vector2> plants = Smell();
-        if(plants.Count == 0) return;
+        if(plants.Count == 0) return false;
         Vector2 closest = plants[0];
         foreach(Vector2 plant in plants)
         {
@@ -77,6 +77,7 @@ public class CreatureBehavior : MonoBehaviour
         else{
             Eat();
         }
+        return true;
 
     }
     void Reproduce()
@@ -97,8 +98,12 @@ public class CreatureBehavior : MonoBehaviour
         }
         else
         {
-            SniffFood();
+            if(!SniffFood())
+            {
+                transform.position += speed * (Vector3) Random.insideUnitCircle.normalized;
+            }
         }
     }
+
 
 }
