@@ -18,9 +18,12 @@ public class CreatureManager : MonoBehaviour
 
     }
 
-    public void Clone(GameObject creature)
+    public CreatureBehavior Clone(GameObject creature)
     {
-        creatures.Add(Instantiate(creature));
+        CreatureBehavior clone = Instantiate(creature, transform).GetComponent<CreatureBehavior>();
+        clone.transform.position += (Vector3) Random.insideUnitCircle.normalized*clone.speed*100;
+        creatures.Add(clone.gameObject);
+        return clone;
     }
 
 }

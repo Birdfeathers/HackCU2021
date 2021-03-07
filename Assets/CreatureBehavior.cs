@@ -10,11 +10,14 @@ public class CreatureBehavior : MonoBehaviour
     public float speed;
     public PlantManager plantManager;
     public CreatureManager creatureManager;
+    public float full;
+    System.Random rnd = new System.Random();
 
     // Start is called before the first frame update
     void Start()
     {
 
+        full = 10;
     }
 
     // Update is called once per frame
@@ -25,7 +28,9 @@ public class CreatureBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        SniffFood();
+        food -= .01f;
+        Prioritize1();
+        //SniffFood();
     }
 
     List<Vector2> Smell()
@@ -47,6 +52,7 @@ public class CreatureBehavior : MonoBehaviour
         {
             food++;
         }
+        print(food);
         return;
     }
 
@@ -75,15 +81,18 @@ public class CreatureBehavior : MonoBehaviour
     {
         food = food / 2;
         creatureManager.Clone(gameObject);
+
     }
     void Prioritize1()
     {
-    }
-    class Behaviour
-    {
-        Func<List<Vector2>> sense;
-        Action<List<Vector2>> motor;
-        Action decide;
+        if(food >= full)
+        {
+            Reproduce();
+        }
+        else
+        {
+            SniffFood();
+        }
     }
 
 }
