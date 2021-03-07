@@ -9,7 +9,7 @@ public class PlantManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        eatingRadius = .1f;
+        eatingRadius = .5f;
     }
 
     // Update is called once per frame

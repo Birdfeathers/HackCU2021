@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CreatureBehavior : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class CreatureBehavior : MonoBehaviour
     }
     void Eat()
     {
-        plantManager.DeleteClosest(transform.position);
+        print(plantManager.DeleteClosest(transform.position));
         return;
     }
 
@@ -58,7 +59,7 @@ public class CreatureBehavior : MonoBehaviour
                 closest = plant;
             }
         }
-        if(closest.magnitude > 0.001)
+        if(closest.magnitude > 0.1)
         {
             transform.position += speed * (Vector3) closest.normalized;
         }
@@ -77,8 +78,8 @@ public class CreatureBehavior : MonoBehaviour
     }
     class Behaviour
     {
-        Func< List<Vector2>> sense;
-        Action<List <Vector2>> motor;
+        Func<List<Vector2>> sense;
+        Action<List<Vector2>> motor;
         Action decide;
     }
 
