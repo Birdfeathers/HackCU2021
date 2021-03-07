@@ -18,6 +18,8 @@ public class CreatureManager : MonoBehaviour
         time = 0;
         File.Create("log.txt").Dispose();
         log = File.AppendText("log.txt");
+        CreatureBehavior creature = creatures[0].GetComponent<CreatureBehavior>();
+        log.Write($"Add; Speed {creature.speed}; Full {creature.full}; smell {creature.smellRadius}; time {time}\n");
     }
     // Update is called once per frame
     void Update()
@@ -53,7 +55,7 @@ public class CreatureManager : MonoBehaviour
     public void DeleteSelf(GameObject creature)
     {
         CreatureBehavior B = creature.GetComponent<CreatureBehavior>();
-        log.Write($"Remove|| Speed{B.speed}; Full {B.full}; smell{B.smellRadius}\n" );
+        log.Write($"Remove; Speed {B.speed}; Full {B.full}; smell {B.smellRadius}; time {time}\n" );
         log.Flush();
         creatures.Remove(creature);
         Destroy(creature);
@@ -92,7 +94,7 @@ public class CreatureManager : MonoBehaviour
         clone.transform.position += (Vector3) Random.insideUnitCircle.normalized;
         Mutate(clone);
         creatures.Add(clone.gameObject);
-        log.Write($"Add|| Speed{clone.speed}; Full {clone.full}; smell{clone.smellRadius}\n" );
+        log.Write($"Add; Speed {clone.speed}; Full {clone.full}; smell {clone.smellRadius}; time {time}\n" );
         log.Flush();
         return clone;
     }

@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creaturePrefab: {fileID: 0}
   creatures:
-  - {fileID: 753774229}
+  - {fileID: 1328946258}
   time: 0
   colorMutability: 0.1
   mutability: 0.5
@@ -210,7 +210,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.59486, g: 0.56804025, b: 0.6509434, a: 0}
+  m_BackGroundColor: {r: 0.6886792, g: 0.65822124, b: 0.5944731, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -269,11 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9305178c05f88484b942894f4e45d8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &753774229 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5509967980973590055, guid: b57492c090975e447aabc804c1370e38, type: 3}
-  m_PrefabInstance: {fileID: 5509967982127946357}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1051064818
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,101 +316,106 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1328946261 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-  m_PrefabInstance: {fileID: 5509967982127946357}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &5509967982127946357
-PrefabInstance:
+--- !u!1 &1328946258
+GameObject:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 114324323}
-    m_Modifications:
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.6202574
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.342589
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.55336666
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590048, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590049, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 0617bc9576367e641ac9f8f558e943c4, type: 3}
-    - target: {fileID: 5509967980973590049, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_Color.b
-      value: 0.6226415
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590049, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_Color.g
-      value: 0.6226415
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590049, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_Color.r
-      value: 0.6226415
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590054, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: food
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590054, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: full
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590054, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: angleChange
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5509967980973590054, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: plantManager
-      value: 
-      objectReference: {fileID: 1051064819}
-    - target: {fileID: 5509967980973590054, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: creatureManager
-      value: 
-      objectReference: {fileID: 114324322}
-    - target: {fileID: 5509967980973590055, guid: b57492c090975e447aabc804c1370e38, type: 3}
-      propertyPath: m_Name
-      value: Creature
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b57492c090975e447aabc804c1370e38, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1328946261}
+  - component: {fileID: 1328946260}
+  - component: {fileID: 1328946259}
+  m_Layer: 0
+  m_Name: Creature
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1328946259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328946258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6646201ccb7d8be4780fc6557d257a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smellRadius: 3
+  food: 12
+  speed: 0.01
+  plantManager: {fileID: 1051064819}
+  creatureManager: {fileID: 114324322}
+  full: 10
+  angle: 0
+  angleChange: 0.5
+--- !u!212 &1328946260
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328946258}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 0617bc9576367e641ac9f8f558e943c4, type: 3}
+  m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1328946261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328946258}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.6202574, y: 2.342589, z: 0.55336666}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 114324323}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
