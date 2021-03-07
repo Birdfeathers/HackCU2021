@@ -8,12 +8,17 @@ public class LogConverter
 {
     private StreamWriter data; // converted data
     private StreamReader log;
-    void Write()
+    public LogConverter()
     {
         log = new StreamReader("log.txt");
         File.Create("data.txt").Dispose();
         data = File.AppendText("data.txt");
 
+    }
+
+    public void Write()
+    {
+       
         int total = 1;
         float totalSpeed = 0.01f;
         float totalFull = 10f;
