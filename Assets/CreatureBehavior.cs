@@ -43,7 +43,10 @@ public class CreatureBehavior : MonoBehaviour
     }
     void Eat()
     {
-        print(plantManager.DeleteClosest(transform.position));
+        if(plantManager.DeleteClosest(transform.position))
+        {
+            food++;
+        }
         return;
     }
 
