@@ -44,6 +44,10 @@ public class PlantManager : MonoBehaviour
 
     public void NewPlantAt(Vector2 location)
     {
+        foreach(GameObject plant in plants)
+        {
+            if (Vector2.Distance(plant.transform.position, location) < 1) { return; }
+        }
         plants.Add(Instantiate(plantPrefab, location, Quaternion.identity, transform));
     }
 }

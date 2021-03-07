@@ -29,6 +29,6 @@ public class PlantBehavior : MonoBehaviour
 
     private void Grow()
     {
-        plantManager.NewPlantAt(Random.insideUnitCircle + (Vector2) transform.position);
+        plantManager.NewPlantAt(3*Random.insideUnitCircle + (Vector2) transform.position);
     }
 }
