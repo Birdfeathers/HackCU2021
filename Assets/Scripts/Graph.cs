@@ -45,10 +45,16 @@ public class Graph : MonoBehaviour
     {
         if (pairs.Count > 1)
         {
-            Vector2 positionA = pairs[0];
+            Vector2 max = pairs[0];
             for (int i = 1; i < pairs.Count; i++)
             {
-                Vector2 positionB = pairs[i];
+                if (pairs[i].x > max.x) { max.x = pairs[i].x; }
+                if (pairs[i].y > max.y) { max.y = pairs[i].y; }
+            }
+            Vector2 positionA = pairs[0] / max;
+            for (int i = 1; i < pairs.Count; i++)
+            {
+                Vector2 positionB = pairs[i] / max;
                 CreateLine(positionA, positionB);
                 positionA = positionB;
             }

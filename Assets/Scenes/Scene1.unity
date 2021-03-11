@@ -1197,7 +1197,8 @@ MonoBehaviour:
   - {x: 0, y: 0}
   - {x: 1, y: 1}
   - {x: 2, y: 4}
-  - {x: 4, y: 8}
+  - {x: 3, y: 0}
+  - {x: 4, y: 16}
 --- !u!1 &1714383616
 GameObject:
   m_ObjectHideFlags: 0
