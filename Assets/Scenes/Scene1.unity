@@ -1193,11 +1193,11 @@ MonoBehaviour:
   graphBackground: {fileID: 334325517}
   rectangle: {fileID: 1062207761722534773, guid: dcd94763739016445a17d4b3150d38ba, type: 3}
   lineWeight: 0.01
-  pairs:
+  defaultPairs:
   - {x: 0, y: 0}
-  - {x: 0.1, y: 0.1}
-  - {x: 0.15, y: 0.2}
-  - {x: 0.5, y: 0.15}
+  - {x: 1, y: 1}
+  - {x: 2, y: 4}
+  - {x: 4, y: 8}
 --- !u!1 &1714383616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,7 +1365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paused: 0
   pauseMenu: {fileID: 1610272336}
-  graph: {fileID: 0}
+  graph: {fileID: 1610272340}
 --- !u!114 &1810362991
 MonoBehaviour:
   m_ObjectHideFlags: 0

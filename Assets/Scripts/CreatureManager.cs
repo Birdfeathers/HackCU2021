@@ -12,6 +12,7 @@ public class CreatureManager : MonoBehaviour
     public float mutability;
 
     private StreamWriter log;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,16 +21,17 @@ public class CreatureManager : MonoBehaviour
         log = File.AppendText("log.txt");
         CreatureBehavior creature = creatures[0].GetComponent<CreatureBehavior>();
         log.Write($"Add; Speed {creature.speed}; Full {creature.full}; smell {creature.smellRadius}; time {time}\n");
+        log.Flush();
     }
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Enter"))
+        if (Input.GetButtonDown("Enter"))
         {
             GenerateReport();
         }
-
     }
+
     void FixedUpdate()
     {
         time++;
@@ -52,7 +54,8 @@ public class CreatureManager : MonoBehaviour
         print($"Average Full: {aveFull} \n");
         print($"Average Smell Radius: {aveSmell} \n");
     }
-    public void DeleteSelf(GameObject creature)
+
+    public void DeleteCreature(GameObject creature)
     {
         CreatureBehavior B = creature.GetComponent<CreatureBehavior>();
         log.Write($"Remove; Speed {B.speed}; Full {B.full}; smell {B.smellRadius}; time {time}\n" );
@@ -61,9 +64,10 @@ public class CreatureManager : MonoBehaviour
         Destroy(creature);
         return;
     }
+
     float TransformNumber(float number)
     {
-        number += Random.Range(-mutability *number, mutability * number);
+        number += Random.Range(-mutability * number, mutability * number);
         return number;
     }
     float TransformNumber(float number, float factor)
@@ -71,6 +75,7 @@ public class CreatureManager : MonoBehaviour
         number += Random.Range(-factor * number, factor * number);
         return number;
     }
+
     void Mutate(CreatureBehavior creature)
     {
         creature.speed = TransformNumber(creature.speed);
@@ -78,8 +83,7 @@ public class CreatureManager : MonoBehaviour
         creature.speed = TransformNumber(creature.speed);
         creature.smellRadius = TransformNumber(creature.smellRadius);
         Color oldColor = creature.gameObject.GetComponent<SpriteRenderer>().color;
-        Color newColor = new Color
-            (
+        Color newColor = new Color(
             TransformNumber(oldColor.r, colorMutability),
             TransformNumber(oldColor.g, colorMutability),
             TransformNumber(oldColor.b, colorMutability)
@@ -98,5 +102,4 @@ public class CreatureManager : MonoBehaviour
         log.Flush();
         return clone;
     }
-
 }

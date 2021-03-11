@@ -10,7 +10,7 @@ public class Graph : MonoBehaviour
     public GameObject rectangle;
     public float lineWeight;
 
-    public List<Vector2> pairs;
+    public List<Vector2> defaultPairs;
     private List<GameObject> lines;
     private Vector2 resolution;
     private bool opened;
@@ -28,7 +28,7 @@ public class Graph : MonoBehaviour
         if (opened && resolution != NewResolution())
         {
             DestroyLines();
-            DrawLines();
+            DrawLines(defaultPairs);
             resolution = NewResolution();
         }
     }
@@ -37,11 +37,11 @@ public class Graph : MonoBehaviour
     {
         if (opened) { return; }
         graphBackground.SetActive(true);
-        DrawLines();
+        DrawLines(defaultPairs);
         opened = true;
     }
 
-    private void DrawLines()
+    private void DrawLines(List<Vector2> pairs)
     {
         if (pairs.Count > 1)
         {
