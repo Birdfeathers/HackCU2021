@@ -512,6 +512,7 @@ MonoBehaviour:
   plantPrefab: {fileID: 6011919087448885862, guid: 08a264ab3216ced4eb692de7d54e66de, type: 3}
   MaxPlants: 250
   breathingRoom: 0.8
+  plantfactor: 0.5
 --- !u!4 &1051064820
 Transform:
   m_ObjectHideFlags: 0
@@ -1364,6 +1365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paused: 0
   pauseMenu: {fileID: 1610272336}
+  graph: {fileID: 0}
 --- !u!114 &1810362991
 MonoBehaviour:
   m_ObjectHideFlags: 0

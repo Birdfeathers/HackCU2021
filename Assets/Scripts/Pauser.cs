@@ -6,6 +6,7 @@ public class Pauser : MonoBehaviour
 {
     public bool paused;
     public GameObject pauseMenu;
+    public Graph graph;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,8 @@ public class Pauser : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
+        //force graph to close when unpausing
+        graph.CloseGraph();
     }
     private void Pause()
     {
