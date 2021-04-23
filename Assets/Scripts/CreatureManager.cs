@@ -10,6 +10,7 @@ public class CreatureManager : MonoBehaviour
     public int time;
     public float colorMutability; //how much it should mutate each channel from previous, as a multiplier
     public float mutability;
+    public int maxCreatures;
 
     private StreamWriter log;
     // Start is called before the first frame update

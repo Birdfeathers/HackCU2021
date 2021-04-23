@@ -90,6 +90,7 @@ public class CreatureBehavior : MonoBehaviour
     }
     void Reproduce()
     {
+        if(creatureManager.creatures.Count >= creatureManager.maxCreatures) {return;}
         food = food / 2;
         creatureManager.Clone(gameObject);
 
