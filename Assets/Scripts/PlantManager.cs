@@ -10,33 +10,26 @@ public class PlantManager : MonoBehaviour
     public float breathingRoom;
     public float plantfactor = .5f;
 
-
     private float eatingRadius;
 
     // Start is called before the first frame update
     void Start()
     {
         eatingRadius = .5f;
-        for(int i = 0; i < 25; i++)
+        for (int i = 0; i < 25; i++)
         {
-            if (NewPlantAt(Random.insideUnitCircle * 6 ))
+            if (NewPlantAt(Random.insideUnitCircle * 6))
             {
                 PlantBehavior plant = plants[i].GetComponent<PlantBehavior>();
-                plant.timeTillGrowth = plant.growthTime - Random.Range(0, plant.growthTime);//random growth left for organicness
+                plant.timeTillGrowth = plant.growthTime - Random.Range(0, plant.growthTime); //random growth left for organicness
             }
             else { i--; }
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public bool DeleteClosest(Vector2 location)
     {
-        for(int i=0; i < plants.Count; i++)
+        for (int i = 0; i < plants.Count; i++)
         {
             Vector2 plantLocation = plants[i].transform.position;
             if (Vector2.Distance(plantLocation, location) <= eatingRadius)
@@ -62,7 +55,7 @@ public class PlantManager : MonoBehaviour
 
         PlantBehavior clone = Instantiate(p, transform).GetComponent<PlantBehavior>();
         clone.transform.position = location;
-        clone.growthTime  += Random.Range(- Mathf.RoundToInt(plantfactor* clone.growthTime) , Mathf.RoundToInt(plantfactor * clone.growthTime));
+        clone.growthTime += Random.Range(-Mathf.RoundToInt(plantfactor * clone.growthTime), Mathf.RoundToInt(plantfactor * clone.growthTime));
         plants.Add(clone.gameObject);
         return true;
     }

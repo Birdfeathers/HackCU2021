@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private Camera thisCamera;
     private const float SCROLL_SCALE = 1.5f;
+    private Camera thisCamera;
     private Vector2 lastMouse;
+
     // Start is called before the first frame update
     void Start()
     {

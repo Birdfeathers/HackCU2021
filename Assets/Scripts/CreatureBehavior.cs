@@ -11,33 +11,14 @@ public class CreatureBehavior : MonoBehaviour
     public PlantManager plantManager;
     public CreatureManager creatureManager;
     public float full;
-    public float angle; //angle in radians that the creature goes when unsure where to go
+    public float angle; //angle in radians that the creature turns when unsure where to go
     public float angleChange;
-
-
-
-    //System.Random rnd = new System.Random();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     void FixedUpdate()
     {
         if(food < 0) Die();
         food -= .5f * speed;
         Prioritize1();
-        //SniffFood();
     }
 
     List<Vector2> Smell()
@@ -46,7 +27,7 @@ public class CreatureBehavior : MonoBehaviour
         foreach(GameObject plant in plantManager.plants)
         {
             Vector2 plantLocation = plant.transform.position;
-            if(Vector2.Distance(plantLocation, transform.position) <= smellRadius)
+            if (Vector2.Distance(plantLocation, transform.position) <= smellRadius)
             {
                 smelledPlants.Add(plantLocation - (Vector2) transform.position);
             }
@@ -55,11 +36,7 @@ public class CreatureBehavior : MonoBehaviour
     }
     void Eat()
     {
-        if(plantManager.DeleteClosest(transform.position))
-        {
-            food++;
-        }
-        //print(food);
+        if (plantManager.DeleteClosest(transform.position)) { food++; }
         return;
     }
 
@@ -70,12 +47,12 @@ public class CreatureBehavior : MonoBehaviour
         Vector2 closest = plants[0];
         foreach(Vector2 plant in plants)
         {
-            if(plant.magnitude < closest.magnitude)
+            if (plant.magnitude < closest.magnitude)
             {
                 closest = plant;
             }
         }
-        if(closest.magnitude > 0.1)
+        if (closest.magnitude > 0.1)
         {
             transform.position += speed * (Vector3) closest.normalized;
             float newAngle = Mathf.Acos(closest.normalized.x);
@@ -88,34 +65,29 @@ public class CreatureBehavior : MonoBehaviour
         return true;
 
     }
+
     void Reproduce()
     {
         if(creatureManager.creatures.Count >= creatureManager.maxCreatures) {return;}
         food = food / 2;
         creatureManager.Clone(gameObject);
-
-
-
     }
+
     void Die()
     {
-        creatureManager.DeleteSelf(gameObject);
+        creatureManager.DeleteCreature(gameObject);
     }
+
     void Prioritize1()
     {
-        if(food >= full)
-        {
-            Reproduce();
-        }
+        if (food >= full) { Reproduce(); }
         else
         {
-            if(!SniffFood())
+            if (!SniffFood())
             {
                 transform.position += speed * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle));
                 angle += Random.Range(-angleChange, angleChange);
             }
         }
     }
-
-
 }
