@@ -12,17 +12,25 @@ public class CreatureManager : MonoBehaviour
     public float mutability;
     public int maxCreatures;
 
+    public List<float> times;
+    public List<float> totals;
+    public List<float> smells;
+    public List<float> fulls;
+    public List<float> speeds;
+
+
+
     private StreamWriter log;
 
     // Start is called before the first frame update
     void Start()
     {
         time = 0;
-        File.Create("log.txt").Dispose();
-        log = File.AppendText("log.txt");
+        // File.Create("log.txt").Dispose();
+        //log = File.AppendText("log.txt");
         CreatureBehavior creature = creatures[0].GetComponent<CreatureBehavior>();
-        log.Write($"Add; Speed {creature.speed}; Full {creature.full}; smell {creature.smellRadius}; time {time}\n");
-        log.Flush();
+        // log.Write($"Add; Speed {creature.speed}; Full {creature.full}; smell {creature.smellRadius}; time {time}\n");
+        // log.Flush();
     }
     // Update is called once per frame
     void Update()
@@ -36,6 +44,7 @@ public class CreatureManager : MonoBehaviour
     void FixedUpdate()
     {
         time++;
+        UpdateVariables();
     }
 
     void GenerateReport()
@@ -56,11 +65,31 @@ public class CreatureManager : MonoBehaviour
         print($"Average Smell Radius: {aveSmell} \n");
     }
 
+    void UpdateVariables()
+    {
+        float totalSpeed = 0, totalFull = 0, totalSmellRange= 0;
+        for(int i = 0; i < creatures.Count; i++)
+        {
+            CreatureBehavior creature =  creatures[i].GetComponent<CreatureBehavior>();
+            totalSpeed += creature.speed;
+            totalFull += creature.full;
+            totalSmellRange += creature.smellRadius;
+        }
+        float aveSpeed = totalSpeed / creatures.Count;
+        float aveFull = totalFull /creatures.Count;
+        float aveSmell= totalSmellRange / creatures.Count;
+        times.Add(time);
+        speeds.Add(aveSpeed);
+        smells.Add(aveSmell);
+        fulls.Add(aveFull);
+        totals.Add(creatures.Count);
+    }
+
     public void DeleteCreature(GameObject creature)
     {
         CreatureBehavior B = creature.GetComponent<CreatureBehavior>();
-        log.Write($"Remove; Speed {B.speed}; Full {B.full}; smell {B.smellRadius}; time {time}\n" );
-        log.Flush();
+        // log.Write($"Remove; Speed {B.speed}; Full {B.full}; smell {B.smellRadius}; time {time}\n" );
+        // log.Flush();
         creatures.Remove(creature);
         Destroy(creature);
         return;
@@ -99,8 +128,8 @@ public class CreatureManager : MonoBehaviour
         clone.transform.position += (Vector3) Random.insideUnitCircle.normalized;
         Mutate(clone);
         creatures.Add(clone.gameObject);
-        log.Write($"Add; Speed {clone.speed}; Full {clone.full}; smell {clone.smellRadius}; time {time}\n" );
-        log.Flush();
+        // log.Write($"Add; Speed {clone.speed}; Full {clone.full}; smell {clone.smellRadius}; time {time}\n" );
+        // log.Flush();
         return clone;
     }
 }

@@ -8,12 +8,19 @@ public class LogConverter
 {
     private StreamWriter data; // converted data
     private StreamReader log;
+    public List<Vector2> pop;
 
     public LogConverter()
     {
         log = new StreamReader("log.txt");
         File.Create("data.txt").Dispose();
         data = File.AppendText("data.txt");
+        pop = new List<Vector2>();
+    }
+    public void Addpop(float x, float y)
+    {
+        Vector2 v = new Vector2(x, y);
+        pop.Add(v);
     }
 
     public void Write()
@@ -23,8 +30,12 @@ public class LogConverter
         float totalFull = 10f;
         float totalSmellRange = 3f;
         int time;
+        //print("in write");
+
+
 
         data.Write($"Time 0; Pop 1; AveSpeed .01; AveFull 10; AveDist 3\n");
+        Addpop(0,1);
         string line = log.ReadLine();
         while (line.Length > 0)
         {
@@ -61,6 +72,7 @@ public class LogConverter
             float aveSmell = totalSmellRange / total;
 
             data.Write($"Time {time}; Pop {total}; AveSpeed {aveSpeed}; AveFull {aveFull}; AveDist {aveSmell}\n");
+            Addpop(time, total);
 
 
             line = log.ReadLine();
