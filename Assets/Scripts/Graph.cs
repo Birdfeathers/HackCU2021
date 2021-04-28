@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Graph : MonoBehaviour
 {
     public GameObject graphBackground;
+    public GameObject graph;
     public GameObject rectangle;
     public float lineWeight;
 
@@ -154,10 +155,10 @@ public class Graph : MonoBehaviour
     private void CreateLine(Vector2 positionA, Vector2 positionB, Color color)
     {
         //set size based on the current size of the background
-        Vector2 size = graphBackground.GetComponent<RectTransform>().rect.size;
+        Vector2 size = graph.GetComponent<RectTransform>().rect.size;
         //make a new line that belongs to the background
         GameObject line = Instantiate(rectangle);
-        line.transform.SetParent(graphBackground.transform, false);
+        line.transform.SetParent(graph.transform, false);
         //move the line to positionA and make it rotate about that point
         RectTransform rectTransform = line.GetComponent<RectTransform>();
         rectTransform.anchorMin = new Vector2(0, 0);
