@@ -17,6 +17,7 @@ public class CreatureManager : MonoBehaviour
     public List<float> smells;
     public List<float> fulls;
     public List<float> speeds;
+    public List<float> wanders;
 
 
 
@@ -49,40 +50,46 @@ public class CreatureManager : MonoBehaviour
 
     void GenerateReport()
     {
-        float totalSpeed = 0, totalFull = 0, totalSmellRange= 0;
+        float totalSpeed = 0, totalFull = 0, totalSmellRange= 0, totalAngleChange = 0;
         for(int i = 0; i < creatures.Count; i++)
         {
             CreatureBehavior creature =  creatures[i].GetComponent<CreatureBehavior>();
             totalSpeed += creature.speed;
             totalFull += creature.full;
             totalSmellRange += creature.smellRadius;
+            totalAngleChange += creature.angleChange;
         }
         float aveSpeed = totalSpeed / creatures.Count;
         float aveFull = totalFull /creatures.Count;
         float aveSmell= totalSmellRange / creatures.Count;
+        float aveAngleChange = totalAngleChange /creatures.Count;
         print($"Average Speed: {aveSpeed} \n");
         print($"Average Full: {aveFull} \n");
         print($"Average Smell Radius: {aveSmell} \n");
+        print($"Average Angle Change: {aveAngleChange} \n");
     }
 
     void UpdateVariables()
     {
-        float totalSpeed = 0, totalFull = 0, totalSmellRange= 0;
+        float totalSpeed = 0, totalFull = 0, totalSmellRange= 0, totalAngleChange = 0;
         for(int i = 0; i < creatures.Count; i++)
         {
             CreatureBehavior creature =  creatures[i].GetComponent<CreatureBehavior>();
             totalSpeed += creature.speed;
             totalFull += creature.full;
             totalSmellRange += creature.smellRadius;
+            totalAngleChange += creature.angleChange;
         }
         float aveSpeed = totalSpeed / creatures.Count;
         float aveFull = totalFull /creatures.Count;
         float aveSmell= totalSmellRange / creatures.Count;
+        float aveAngleChange = totalAngleChange /creatures.Count;
         times.Add(time);
         speeds.Add(aveSpeed);
         smells.Add(aveSmell);
         fulls.Add(aveFull);
         totals.Add(creatures.Count);
+        wanders.Add(aveAngleChange);
     }
 
     public void DeleteCreature(GameObject creature)
@@ -112,6 +119,7 @@ public class CreatureManager : MonoBehaviour
         creature.full = TransformNumber(creature.full);
         creature.speed = TransformNumber(creature.speed);
         creature.smellRadius = TransformNumber(creature.smellRadius);
+        creature.angleChange = TransformNumber(creature.angleChange);
         Color oldColor = creature.gameObject.GetComponent<SpriteRenderer>().color;
         Color newColor = new Color(
             TransformNumber(oldColor.r, colorMutability),

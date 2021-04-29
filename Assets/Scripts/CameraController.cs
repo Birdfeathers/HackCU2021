@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
     private const float SCROLL_SCALE = 1.5f;
     private Camera thisCamera;
     private Vector2 lastMouse;
+    public SpeedSlider slider;
 
     // Start is called before the first frame update
     void Start()
@@ -26,11 +27,11 @@ public class CameraController : MonoBehaviour
             Input.mousePosition.y >= Screen.height
             );
         if (mouseIsInBounds)
-        { 
-            thisCamera.orthographicSize -= SCROLL_SCALE * Input.GetAxis("Mouse ScrollWheel") * thisCamera.orthographicSize; 
+        {
+            thisCamera.orthographicSize -= SCROLL_SCALE * Input.GetAxis("Mouse ScrollWheel") * thisCamera.orthographicSize;
         }
         Vector2 newMouse = thisCamera.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetButton("LeftClick"))
+        if (Input.GetButton("LeftClick") && slider.okay)
         {
             transform.Translate(lastMouse - newMouse);
             newMouse = thisCamera.ScreenToWorldPoint(Input.mousePosition);

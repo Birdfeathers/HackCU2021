@@ -10,6 +10,9 @@ public class PlantManager : MonoBehaviour
     public float breathingRoom;
     public float plantfactor = .5f;
 
+    public List<float> totals;
+    public List<float> growthTimes;
+
     private float eatingRadius;
 
     // Start is called before the first frame update
@@ -25,6 +28,24 @@ public class PlantManager : MonoBehaviour
             }
             else { i--; }
         }
+    }
+
+    void FixedUpdate()
+    {
+        UpdateVariables();
+    }
+
+    void UpdateVariables()
+    {
+        float totalgrowthTime = 0;
+        for(int i = 0; i < plants.Count; i++)
+        {
+            PlantBehavior plant =  plants[i].GetComponent<PlantBehavior>();
+            totalgrowthTime += plant.growthTime;
+        }
+        float aveGrowthTime = totalgrowthTime/ plants.Count;
+        totals.Add(plants.Count);
+        growthTimes.Add(aveGrowthTime);
     }
 
     public bool DeleteClosest(Vector2 location)

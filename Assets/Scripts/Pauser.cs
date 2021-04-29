@@ -7,6 +7,7 @@ public class Pauser : MonoBehaviour
     public bool paused;
     public GameObject pauseMenu;
     public Graph graph;
+    public GameObject slider;
 
     // Start is called before the first frame update
     void Start()
@@ -29,14 +30,18 @@ public class Pauser : MonoBehaviour
     private void Unpause()
     {
         pauseMenu.SetActive(false);
-        Time.timeScale = 1;
         //force graph to close when unpausing
         graph.CloseGraph();
+        SpeedSlider values = slider.GetComponent<SpeedSlider>();
+        Time.timeScale = values.speed;
+        values.speedbar.value = values.speed;
+        slider.SetActive(true);
     }
 
     private void Pause()
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
+        slider.SetActive(false);
     }
 }

@@ -19,6 +19,7 @@ public class Graph : MonoBehaviour
     public int MAXPOINTS = 500;
     public ButtonManagerBehavior bmb;
     public CreatureManager cm;
+    public PlantManager pm;
 
 
     void Start()
@@ -95,6 +96,18 @@ public class Graph : MonoBehaviour
         else if(button.type == "total")
         {
             return(CreateVectorList(cm.times, cm.totals));
+        }
+        else if(button.type == "wander")
+        {
+            return(CreateVectorList(cm.times, cm.wanders));
+        }
+        else if(button.type == "plantPop")
+        {
+            return(CreateVectorList(cm.times, pm.totals));
+        }
+        else if(button.type == "plantGrowthTime")
+        {
+            return(CreateVectorList(cm.times, pm.growthTimes));
         }
         return(CreateVectorList(cm.times, cm.totals));
     }

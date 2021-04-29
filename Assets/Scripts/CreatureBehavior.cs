@@ -86,7 +86,7 @@ public class CreatureBehavior : MonoBehaviour
             if (!SniffFood())
             {
                 transform.position += speed * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle));
-                angle += Random.Range(-angleChange, angleChange);
+                angle += Random.Range(-angleChange/ (speed *100), angleChange / (speed * 100));
             }
         }
     }
