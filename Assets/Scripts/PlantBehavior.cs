@@ -6,6 +6,8 @@ public class PlantBehavior : MonoBehaviour
 {
     public int growthTime; //average time before growing in frames
     public int timeTillGrowth;
+    public int id;
+    public int generation;
 
     private PlantManager plantManager;
 

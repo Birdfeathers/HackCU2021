@@ -22,6 +22,7 @@ public class Graph : MonoBehaviour
     public PlantManager pm;
     public Dropdown ddx;
     public Dropdown dda;
+    public Dropdown ddp;
 
 
     void Start()
@@ -63,7 +64,7 @@ public class Graph : MonoBehaviour
                     int x = dda.value;
                     int y = bmb.buttons[i].number;
                     bool livingIncluded = true;
-                    if(x > 4 || y > 4) livingIncluded = false;
+                    if(x > 5 || y > 5) livingIncluded = false;
                     DrawLines(ListSpacing(CreateListFromData(x,y, livingIncluded)),bmb.buttons[i].color);
 
                 }
@@ -71,7 +72,18 @@ public class Graph : MonoBehaviour
         }
         else
         {
-            print("else");
+            for(int i = 0; i < bmb.buttons.Count; i++)
+            {
+                if(bmb.buttons[i].on)
+                {
+                    int x = ddp.value;
+                    int y = bmb.buttons[i].number;
+                    bool livingIncluded = true;
+                    if(x > 2 || y > 2) livingIncluded = false;
+                    DrawLines(ListSpacing(CreateListFromPlantData(x,y, livingIncluded)),bmb.buttons[i].color);
+
+                }
+            }
         }
 
     }
@@ -140,6 +152,25 @@ public class Graph : MonoBehaviour
         }
         return -1;
     }
+    private float returnPlantVariable(int code, int index)
+    {
+        switch(code)
+        {
+            case 0:
+                return pm.data[index].generation;
+            case 1:
+                return pm.data[index].growthRate;
+            case 2:
+                return pm.data[index].birthtime;
+            case 3:
+                return pm.data[index].deathtime;
+            case 4:
+                return pm.data[index].lifetime;
+
+        }
+        return -1;
+    }
+
     private float AdjustAverage(float currentAverage, float total, float number)
     {
         return ((currentAverage * (total - 1)) + number) / total;
@@ -207,6 +238,45 @@ public class Graph : MonoBehaviour
             }
 
         }
+        newList = SortByX(newList);
+        // for(int i = 0; i < newList.Count; i++)
+        // {
+        //     print($"x: {newList[i].x}; y: {newList[i].y}");
+        // }
+        return newList;
+    }
+
+        private List<Vector2> CreateListFromPlantData(int x, int y, bool livingIncluded)
+        {
+            List <Vector2> newList= new List<Vector2>();
+            List<Vector2> totalAtX = new List<Vector2>();
+            foreach(KeyValuePair<int , PlantData> plant in pm.data)
+            {
+                if(livingIncluded || plant.Value.deathtime != -1)
+                {
+                    float xVal = returnPlantVariable(x, plant.Key);
+                    float yVal = returnPlantVariable(y, plant.Key);
+                    int index = LookupIndex(newList, xVal);
+                    if(index == -1)
+                    {
+                        Vector2 v = new Vector2(xVal, yVal);
+                        newList.Add(v);
+                        Vector2 total = new Vector2(xVal, 1);
+                        totalAtX.Add(total);
+                    }
+                    else
+                    {
+                        float Ty =  totalAtX[index].y + 1;
+                        float Ny = AdjustAverage(newList[index].y, totalAtX[index].y, yVal);
+                        Vector2 v = new Vector2(xVal,Ny);
+                        Vector2 total = new Vector2(xVal, Ty);
+                        newList[index] = v;
+                        totalAtX[index] = total;
+
+                    }
+                }
+
+            }
         newList = SortByX(newList);
         // for(int i = 0; i < newList.Count; i++)
         // {
