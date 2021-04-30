@@ -16,4 +16,12 @@ public class ButtonManagerBehavior : MonoBehaviour
     {
 
     }
+    public void OffButtons()
+    {
+        for(int i = 0; i < buttons.Count; i++)
+        {
+            buttons[i].on = false;
+        }
+    }
+
 }

@@ -7,6 +7,7 @@ public class ButtonBehavior2 : MonoBehaviour
     public bool on;
     public List<Vector2> pairs;
     public string type;
+    public int number;
     public Graph graph;
     public Color color;
     //public LogConverter con;

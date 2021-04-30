@@ -45,7 +45,7 @@ public class PlantManager : MonoBehaviour
         }
         float aveGrowthTime = totalgrowthTime/ plants.Count;
         totals.Add(plants.Count);
-        growthTimes.Add(aveGrowthTime);
+        growthTimes.Add(1 / aveGrowthTime);
     }
 
     public bool DeleteClosest(Vector2 location)

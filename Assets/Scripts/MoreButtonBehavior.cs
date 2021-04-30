@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoreButtonBehavior : MonoBehaviour
 {
     public List<GameObject> p;
-    int current;
+    public int current;
     // Start is called before the first frame update
     void Start()
     {

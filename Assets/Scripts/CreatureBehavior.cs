@@ -13,6 +13,8 @@ public class CreatureBehavior : MonoBehaviour
     public float full;
     public float angle; //angle in radians that the creature turns when unsure where to go
     public float angleChange;
+    public int generation;
+    public int id;
 
     void FixedUpdate()
     {

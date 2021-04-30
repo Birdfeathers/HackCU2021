@@ -18,6 +18,8 @@ public class CreatureManager : MonoBehaviour
     public List<float> fulls;
     public List<float> speeds;
     public List<float> wanders;
+    public int currentID;
+    public Dictionary<int, CreatureData> data = new Dictionary<int, CreatureData>();
 
 
 
@@ -27,11 +29,19 @@ public class CreatureManager : MonoBehaviour
     void Start()
     {
         time = 0;
+        currentID = 0;
         // File.Create("log.txt").Dispose();
         //log = File.AppendText("log.txt");
         CreatureBehavior creature = creatures[0].GetComponent<CreatureBehavior>();
         // log.Write($"Add; Speed {creature.speed}; Full {creature.full}; smell {creature.smellRadius}; time {time}\n");
         // log.Flush();
+        // public CreatureData(int ID, int B, int G, float Sp, float Sm, float F, float A)
+        creature.generation = 0;
+        creature.id = currentID;
+        CreatureData cd = new CreatureData( time, 0, creature.speed, creature.smellRadius, creature.full, creature.angleChange);
+        data.Add(currentID, cd);
+        currentID++;
+
     }
     // Update is called once per frame
     void Update()
@@ -97,6 +107,8 @@ public class CreatureManager : MonoBehaviour
         CreatureBehavior B = creature.GetComponent<CreatureBehavior>();
         // log.Write($"Remove; Speed {B.speed}; Full {B.full}; smell {B.smellRadius}; time {time}\n" );
         // log.Flush();
+        data[B.id].deathtime = time;
+        data[B.id].lifetime = time - data[B.id].birthtime;
         creatures.Remove(creature);
         Destroy(creature);
         return;
@@ -135,9 +147,14 @@ public class CreatureManager : MonoBehaviour
         CreatureBehavior clone = Instantiate(creature, transform).GetComponent<CreatureBehavior>();
         clone.transform.position += (Vector3) Random.insideUnitCircle.normalized;
         Mutate(clone);
+        clone.generation = clone.generation + 1;
+        clone.id = currentID;
         creatures.Add(clone.gameObject);
         // log.Write($"Add; Speed {clone.speed}; Full {clone.full}; smell {clone.smellRadius}; time {time}\n" );
         // log.Flush();
+        CreatureData cd = new CreatureData(time, clone.generation, clone.speed, clone.smellRadius, clone.full, clone.angleChange);
+        data.Add(currentID, cd);
+        currentID++;
         return clone;
     }
 }

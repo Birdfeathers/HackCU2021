@@ -20,6 +20,8 @@ public class Graph : MonoBehaviour
     public ButtonManagerBehavior bmb;
     public CreatureManager cm;
     public PlantManager pm;
+    public Dropdown ddx;
+    public Dropdown dda;
 
 
     void Start()
@@ -41,14 +43,37 @@ public class Graph : MonoBehaviour
 
     private void DrawGraphs()
     {
-        for(int i = 0; i < bmb.buttons.Count; i++)
+        if(ddx.value == 0)
         {
-            if(bmb.buttons[i].on)
+            for(int i = 0; i < bmb.buttons.Count; i++)
             {
-            DrawLines(FindPairs(bmb.buttons[i]), bmb.buttons[i].color);
+                if(bmb.buttons[i].on)
+                {
+                DrawLines(FindPairs(bmb.buttons[i]), bmb.buttons[i].color);
 
+                }
             }
         }
+        else if(ddx.value == 1)
+        {
+            for(int i = 0; i < bmb.buttons.Count; i++)
+            {
+                if(bmb.buttons[i].on)
+                {
+                    int x = dda.value;
+                    int y = bmb.buttons[i].number;
+                    bool livingIncluded = true;
+                    if(x > 4 || y > 4) livingIncluded = false;
+                    DrawLines(ListSpacing(CreateListFromData(x,y, livingIncluded)),bmb.buttons[i].color);
+
+                }
+            }
+        }
+        else
+        {
+            print("else");
+        }
+
     }
 
     private List<Vector2> CreateVectorList(List<float> x, List<float> y)
@@ -76,6 +101,135 @@ public class Graph : MonoBehaviour
         else{
             print("error");
         }
+        return newList;
+    }
+
+    private int LookupIndex(List<Vector2> list, float value)
+    {
+        for(int i = 0; i < list.Count; i++)
+        {
+            if(list[i].x == value)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private float returnVariable(int code, int index)
+    {
+        switch(code)
+        {
+            case 0:
+                return cm.data[index].generation;
+            case 1:
+                return cm.data[index].speed;
+            case 2:
+                return cm.data[index].smellRadius;
+            case 3:
+                return cm.data[index].full;
+            case 4:
+                return cm.data[index].angleChange;
+            case 5:
+                return cm.data[index].birthtime;
+            case 6:
+                return cm.data[index].deathtime;
+            case 7:
+                return cm.data[index].lifetime;
+
+        }
+        return -1;
+    }
+    private float AdjustAverage(float currentAverage, float total, float number)
+    {
+        return ((currentAverage * (total - 1)) + number) / total;
+    }
+
+    private List<Vector2> ListSpacing(List<Vector2> list)
+    {
+        List<Vector2> newList = new List<Vector2>();
+        int spacing;
+        if(list.Count <= MAXPOINTS)
+        {
+            return list;
+        }
+        else
+        {
+            spacing = list.Count / MAXPOINTS;
+        }
+
+        for(int i = 0; i < list.Count; i+= spacing)
+        {
+            Vector2 v = new Vector2(list[i].x, list[i].y);
+            newList.Add(v);
+        }
+        return newList;
+    }
+
+    private List<Vector2> CreateListFromData(int x, int y, bool livingIncluded)
+    {
+        /* Arrangement of Creature Data:
+        6. birthtime
+        1. generation
+        2. speed
+        3. smellRadius
+        4. full
+        5. angleChange
+        7. deathtime
+        8. lifetime
+        */
+        List<Vector2> newList= new List<Vector2>();
+        List<Vector2> totalAtX = new List<Vector2>();
+        foreach(KeyValuePair<int , CreatureData> creature in cm.data)
+        {
+            if(livingIncluded || creature.Value.deathtime != -1)
+            {
+                float xVal = returnVariable(x, creature.Key);
+                float yVal = returnVariable(y, creature.Key);
+                int index = LookupIndex(newList, xVal);
+                if(index == -1)
+                {
+                    Vector2 v = new Vector2(xVal, yVal);
+                    newList.Add(v);
+                    Vector2 total = new Vector2(xVal, 1);
+                    totalAtX.Add(total);
+                }
+                else
+                {
+                    float Ty =  totalAtX[index].y + 1;
+                    float Ny = AdjustAverage(newList[index].y, totalAtX[index].y, yVal);
+                    Vector2 v = new Vector2(xVal,Ny);
+                    Vector2 total = new Vector2(xVal, Ty);
+                    newList[index] = v;
+                    totalAtX[index] = total;
+
+                }
+            }
+
+        }
+        newList = SortByX(newList);
+        // for(int i = 0; i < newList.Count; i++)
+        // {
+        //     print($"x: {newList[i].x}; y: {newList[i].y}");
+        // }
+        return newList;
+    }
+
+    private List<Vector2> SortByX(List<Vector2> list)
+    {
+        List<Vector2> newList = new List<Vector2>();
+        newList.Add(list[0]);
+        for(int i = 1; i < list.Count; i++)
+        {
+            int place = 0;
+            while(place < newList.Count && list[i].x > newList[place].x) place++;
+            newList.Insert(place, list[i]);
+
+        }
+        // for(int i = 0; i < newList.Count; i++)
+        // {
+        //     print($" Sorted x: {newList[i].x}; y: {newList[i].y}");
+        // }
         return newList;
     }
 
@@ -121,6 +275,7 @@ public class Graph : MonoBehaviour
         opened = true;
     }
 
+
     private void DrawLines(List<Vector2> pairs, Color color)
     {
         if (pairs.Count > 1)
@@ -149,7 +304,7 @@ public class Graph : MonoBehaviour
         opened = false;
     }
 
-    private void DestroyLines()
+    public void DestroyLines()
     {
         foreach (GameObject line in lines)
         {
@@ -192,4 +347,6 @@ public class Graph : MonoBehaviour
     }
 
     private Vector2 NewResolution() => new Vector2(Screen.width, Screen.height);
+
+
 }
