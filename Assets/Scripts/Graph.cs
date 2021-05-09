@@ -238,12 +238,14 @@ public class Graph : MonoBehaviour
             }
 
         }
-        newList = SortByX(newList);
+        List<Vector2> returnList;
+        if(y == -1) returnList = SortByX(totalAtX);
+        else returnList = SortByX(newList);
         // for(int i = 0; i < newList.Count; i++)
         // {
-        //     print($"x: {newList[i].x}; y: {newList[i].y}");
+        //     print($"x: {returnList[i].x}; y: {returnList[i].y}");
         // }
-        return newList;
+        return returnList;
     }
 
         private List<Vector2> CreateListFromPlantData(int x, int y, bool livingIncluded)
@@ -277,12 +279,14 @@ public class Graph : MonoBehaviour
                 }
 
             }
-        newList = SortByX(newList);
+        List<Vector2> returnList;
+        if(y == -1) returnList = SortByX(totalAtX);
+        else returnList = SortByX(newList);
         // for(int i = 0; i < newList.Count; i++)
         // {
         //     print($"x: {newList[i].x}; y: {newList[i].y}");
         // }
-        return newList;
+        return returnList;
     }
 
     private List<Vector2> SortByX(List<Vector2> list)
@@ -340,6 +344,7 @@ public class Graph : MonoBehaviour
     {
         //if (opened) { return; }
         graphBackground.SetActive(true);
+        graphBackground.transform.SetAsLastSibling();
         DestroyLines();
         DrawGraphs();
         opened = true;

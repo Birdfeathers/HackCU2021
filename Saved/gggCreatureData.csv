@@ -1,0 +1,3 @@
+Creature ID,Birth Time,Death Time,Life Time,Generation,Speed,Smell Radius,Full,Angle Change
+0,0,-1,-1,0,0.01,3,10,0.5
+1,1,-1,-1,1,0.0147488,2.801839,6.318432,0.3579568
