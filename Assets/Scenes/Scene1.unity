@@ -1317,6 +1317,7 @@ GameObject:
   - component: {fileID: 145816841}
   - component: {fileID: 145816840}
   - component: {fileID: 145816839}
+  - component: {fileID: 145816842}
   m_Layer: 5
   m_Name: AddLineButton
   m_TagString: Untagged
@@ -1387,7 +1388,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 145816840}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 145816842}
+        m_TargetAssemblyTypeName: AddBarrier, Assembly-CSharp
+        m_MethodName: Add
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &145816840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1426,6 +1439,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145816837}
   m_CullTransparentMesh: 1
+--- !u!114 &145816842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145816837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b30b0d77a0a8fe7479a771d0f7804de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrier: {fileID: 7976007645481111490, guid: f49d2f20f529a854f959b066dfca6b19, type: 3}
+  dotPrefab: {fileID: 5471978007500556896, guid: 631bc9cd61c53b64a8fe04da31a06bd3, type: 3}
 --- !u!1 &146424680
 GameObject:
   m_ObjectHideFlags: 0
