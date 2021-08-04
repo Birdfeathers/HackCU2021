@@ -10,6 +10,9 @@ public class AddBarrier : MonoBehaviour
     public GameObject barrier;
     public GameObject dotPrefab;
 
+    GameObject dot1;
+    GameObject dot2;
+
     Vector3 pos1;
     Vector3 pos2;
 
@@ -21,12 +24,6 @@ public class AddBarrier : MonoBehaviour
 
     void CreateBarrier()
     {
-        // GameObject barr = Instantiate(barrier, pos1, Quaternion.identity, transform);
-        //
-        // RectTransform rectTransform = barr.GetComponent<RectTransform>();
-        // rectTransform.anchorMin = new Vector2(0, 0);
-        // rectTransform.anchorMax = new Vector2(0, 0);
-        // rectTransform.anchoredPosition = pos1;
         Vector2 relPos = pos1 - pos2;
         Vector2 mid = (pos1 + pos2) / 2;
 
@@ -39,11 +36,10 @@ public class AddBarrier : MonoBehaviour
         float dir = Mathf.Acos(normalizedDiff.x) * Mathf.Sign(normalizedDiff.y);
         barr.transform.localEulerAngles = new Vector3(0,0,dir*180/Mathf.PI);
         // correct size
-        barr.transform.localScale = new Vector3(dist, 1, 1);
+        barr.transform.localScale = new Vector3(dist, 0.5f, 1);
 
-
-
-
+        Destroy(dot1);
+        Destroy(dot2);
 
     }
 
@@ -56,18 +52,21 @@ public class AddBarrier : MonoBehaviour
             {
                 Vector3 mousePos =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePos.z = 0;
-                Instantiate(dotPrefab, mousePos, Quaternion.identity);
+                GameObject dot = Instantiate(dotPrefab, mousePos, Quaternion.identity, transform);
                 if(addSecond)
                 {
                     addSecond = false;
                     pos2 = mousePos;
+                    dot1 = dot;
                     CreateBarrier();
+
                 }
                 else
                 {
                     addFirst = false;
                     addSecond = true;
                     pos1 = mousePos;
+                    dot2 = dot;
                 }
 
             }

@@ -25,8 +25,16 @@ public class SpeedSlider : MonoBehaviour
 
     public void ValueChanged()
     {
-        speed = speedbar.value;
-        Time.timeScale = speed;
+        try // added try so times this doesn't work at beggining and end of execution don't crowd console
+        {
+            speed = speedbar.value;
+            Time.timeScale = speed;
+        }
+        catch
+        {
+
+        }
+
     }
 
     public void DeactivateMove()

@@ -15,12 +15,12 @@ public class CloseBuildMode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(pauseScreen.activeSelf) pauseScreen.SetActive(false);
     }
 
     public void Close()
     {
-        pauseScreen.SetActive(true);
+        if(Time.timeScale == 0) pauseScreen.SetActive(true);
         buildScreen.SetActive(false);
     }
 }
