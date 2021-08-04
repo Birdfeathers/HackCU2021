@@ -37,6 +37,7 @@ public class AddBarrier : MonoBehaviour
         barr.transform.localEulerAngles = new Vector3(0,0,dir*180/Mathf.PI);
         // correct size
         barr.transform.localScale = new Vector3(dist, 0.5f, 1);
+        barr.GetComponent<BoxCollider2D>().size = new Vector2(dist, 0.5f);
 
         Destroy(dot1);
         Destroy(dot2);

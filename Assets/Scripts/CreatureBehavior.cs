@@ -16,6 +16,19 @@ public class CreatureBehavior : MonoBehaviour
     public int generation;
     public int id;
 
+    void Start()
+    {
+        gameObject.tag = "creature";
+
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "creature") {
+            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<BoxCollider2D>(),  GetComponent<BoxCollider2D>());
+       }
+    }
+
     void FixedUpdate()
     {
         if(food < 0) Die();
