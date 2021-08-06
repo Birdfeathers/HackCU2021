@@ -64,7 +64,7 @@ public class Graph : MonoBehaviour
                     int x = dda.value;
                     int y = bmb.buttons[i].number;
                     bool livingIncluded = true;
-                    if(x > 5 || y > 5) livingIncluded = false;
+                    if(x > 6 || y > 6) livingIncluded = false;
                     DrawLines(ListSpacing(CreateListFromData(x,y, livingIncluded)),bmb.buttons[i].color);
 
                 }
@@ -139,14 +139,16 @@ public class Graph : MonoBehaviour
             case 2:
                 return cm.data[index].smellRadius;
             case 3:
-                return cm.data[index].full;
+                return cm.data[index].thriftiness;
             case 4:
                 return cm.data[index].angleChange;
             case 5:
                 return cm.data[index].birthtime;
             case 6:
-                return cm.data[index].deathtime;
+                return cm.data[index].strat;
             case 7:
+                return cm.data[index].deathtime;
+            case 8:
                 return cm.data[index].lifetime;
 
         }
@@ -204,7 +206,7 @@ public class Graph : MonoBehaviour
         1. generation
         2. speed
         3. smellRadius
-        4. full
+        4. thriftiness
         5. angleChange
         7. deathtime
         8. lifetime
@@ -313,9 +315,9 @@ public class Graph : MonoBehaviour
         {
             return(CreateVectorList(cm.times, cm.smells));
         }
-        else if(button.type == "full")
+        else if(button.type == "thriftiness")
         {
-            return(CreateVectorList(cm.times, cm.fulls));
+            return(CreateVectorList(cm.times, cm.thrifties));
         }
         else if(button.type == "speed")
         {
@@ -336,6 +338,10 @@ public class Graph : MonoBehaviour
         else if(button.type == "plantGrowthTime")
         {
             return(CreateVectorList(cm.times, pm.growthTimes));
+        }
+        else if(button.type == "strats")
+        {
+            return(CreateVectorList(cm.times,cm.strats));
         }
         return(CreateVectorList(cm.times, cm.totals));
     }

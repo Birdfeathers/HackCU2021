@@ -35,10 +35,10 @@ public class LogConverter
 
     public void WriteTime()
     {
-        timeData.Write("Time,Population,Average Speed,Average Full, Average Smell Distance, Angle Change \n");
+        timeData.Write("Time,Population,Average Speed,Average Thriftiness, Average Smell Distance, Angle Change \n");
         for(int i = 0; i < cm.times.Count; i++)
         {
-            timeData.Write($"{cm.times[i]},{cm.totals[i]},{cm.speeds[i]},{cm.fulls[i]},{cm.smells[i]}, {cm.wanders[i]}\n");
+            timeData.Write($"{cm.times[i]},{cm.totals[i]},{cm.speeds[i]},{cm.thrifties[i]},{cm.smells[i]}, {cm.wanders[i]}\n");
         }
 
 
@@ -46,11 +46,11 @@ public class LogConverter
 
     public void WriteCreature()
     {
-        creatureData.Write("Creature ID,Birth Time,Death Time,Life Time,Generation,Speed,Smell Radius,Full,Angle Change\n");
+        creatureData.Write("Creature ID,Birth Time,Death Time,Life Time,Generation,Speed,Smell Radius,Thriftiness,Angle Change\n");
         foreach(KeyValuePair<int , CreatureData> creature in cm.data)
         {
             int index = creature.Key;
-            creatureData.Write($"{index},{cm.data[index].birthtime},{cm.data[index].deathtime},{cm.data[index].lifetime},{cm.data[index].generation},{cm.data[index].speed},{cm.data[index].smellRadius},{cm.data[index].full},{cm.data[index].angleChange}\n");
+            creatureData.Write($"{index},{cm.data[index].birthtime},{cm.data[index].deathtime},{cm.data[index].lifetime},{cm.data[index].generation},{cm.data[index].speed},{cm.data[index].smellRadius},{cm.data[index].thriftiness},{cm.data[index].angleChange}\n");
         }
 
     }

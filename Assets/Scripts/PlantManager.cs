@@ -62,23 +62,39 @@ public class PlantManager : MonoBehaviour
         growthTimes.Add(1 / aveGrowthTime);
     }
 
-    public bool DeleteClosest(Vector2 location)
+    // public bool DeleteClosest(Vector2 location)
+    // {
+    //     for (int i = 0; i < plants.Count; i++)
+    //     {
+    //         Vector2 plantLocation = plants[i].transform.position;
+    //         if (Vector2.Distance(plantLocation, location) <= eatingRadius)
+    //         {
+    //             GameObject plant = plants[i];
+    //
+    //             PlantBehavior P = plant.GetComponent<PlantBehavior>();
+    //             data[P.id].deathtime = time;
+    //             data[P.id].lifetime = time - data[P.id].birthtime;
+    //
+    //             plants.RemoveAt(i);
+    //             Destroy(plant);
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+
+    public bool DeletePlant(GameObject plant, Vector2 location)
     {
-        for (int i = 0; i < plants.Count; i++)
+        Vector2 plantLocation = plant.transform.position;
+        if (Vector2.Distance(plantLocation, location) <= eatingRadius)
         {
-            Vector2 plantLocation = plants[i].transform.position;
-            if (Vector2.Distance(plantLocation, location) <= eatingRadius)
-            {
-                GameObject plant = plants[i];
+            PlantBehavior P = plant.GetComponent<PlantBehavior>();
+            data[P.id].deathtime = time;
+            data[P.id].lifetime = time - data[P.id].birthtime;
 
-                PlantBehavior P = plant.GetComponent<PlantBehavior>();
-                data[P.id].deathtime = time;
-                data[P.id].lifetime = time - data[P.id].birthtime;
-
-                plants.RemoveAt(i);
-                Destroy(plant);
-                return true;
-            }
+            plants.Remove(plant);
+            Destroy(plant);
+            return true;
         }
         return false;
     }

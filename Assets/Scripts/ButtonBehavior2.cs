@@ -37,10 +37,7 @@ public class ButtonBehavior2 : MonoBehaviour
 
         }
     }
-    public void Smells()
-    {
 
-    }
 
 
 }

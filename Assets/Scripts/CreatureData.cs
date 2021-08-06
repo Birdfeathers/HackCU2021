@@ -9,29 +9,30 @@ public class CreatureData
     public int generation;
     public float speed;
     public float smellRadius;
-    public float full;
+    public float thriftiness;
     public float angleChange;
     public float lifetime;
-
+    public int strat;
     /* Arrangement of Creature Data:
     1. birthtime
     2. generation
     3. speed
     4. smellRadius
-    5. full
+    5. thriftiness
     6. angleChange
     7. deathtime
     */
 
-    public CreatureData(int B, int G, float Sp, float Sm, float F, float A)
+    public CreatureData(int B, int G, float Sp, float Sm, float T, float A, int Str)
     {
         birthtime = B;
         generation = G;
         speed = Sp;
         smellRadius = Sm;
-        full = F;
+        thriftiness = T;
         angleChange = A;
         deathtime = -1;
         lifetime = -1;
+        strat = Str;
     }
 }

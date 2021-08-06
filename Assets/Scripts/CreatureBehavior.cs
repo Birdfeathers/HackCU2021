@@ -10,11 +10,13 @@ public class CreatureBehavior : MonoBehaviour
     public float speed;
     public PlantManager plantManager;
     public CreatureManager creatureManager;
-    public float full;
+    public float thriftiness;
     public float angle; //angle in radians that the creature turns when unsure where to go
     public float angleChange;
     public int generation;
     public int id;
+    public List<GameObject> touching;
+    public int strat;
 
     void Start()
     {
@@ -22,64 +24,144 @@ public class CreatureBehavior : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        if(collision.gameObject.tag == "creature") {
-            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<BoxCollider2D>(),  GetComponent<BoxCollider2D>());
-       }
+       //  if(collision.gameObject.tag == "creature") {
+       //      Physics2D.IgnoreCollision(collision.gameObject.GetComponent<BoxCollider2D>(),  GetComponent<BoxCollider2D>());
+       // }
+       touching.Add(other.gameObject);
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        touching.Remove(other.gameObject);
+    }
+
+    void Update()
+    {
+        for(int i = 0; i < touching.Count; i++)
+        {
+            if(touching[i] == null) touching.RemoveAt(i);
+        }
     }
 
     void FixedUpdate()
     {
         if(food < 0) Die();
         food -= .5f * speed;
-        Prioritize1();
+        GetComponent<Rigidbody2D>().mass = food;
+        float size = Mathf.Sqrt(GetComponent<Rigidbody2D>().mass /5);
+        transform.localScale = new Vector3(size, size, 1);
+        CallStrat();
     }
 
-    List<Vector2> Smell()
+    void CallStrat()
     {
-        List<Vector2> smelledPlants = new List<Vector2>();
-        foreach(GameObject plant in plantManager.plants)
+        switch(strat)
         {
-            Vector2 plantLocation = plant.transform.position;
-            if (Vector2.Distance(plantLocation, transform.position) <= smellRadius)
+            case 1:
+                Prioritize1();
+                break;
+            case 2:
+                Prioritize2();
+                break;
+        }
+    }
+
+    Vector2 getRelLocation(GameObject thing)
+    {
+        Vector2 thingLocation = thing.transform.position;
+         return (thingLocation - (Vector2) transform.position);
+    }
+
+    List<GameObject> Smell(List<GameObject> things)
+    {
+        List<GameObject> smelledThings = new List<GameObject>();
+        foreach(GameObject thing in things)
+        {
+            Vector2 relLocation = getRelLocation(thing);
+            if (relLocation.magnitude <= smellRadius)
             {
-                smelledPlants.Add(plantLocation - (Vector2) transform.position);
+                smelledThings.Add(thing);
             }
         }
-        return smelledPlants;
+        return smelledThings;
     }
-    void Eat()
+    bool Eat(string type, GameObject thing)
     {
-        if (plantManager.DeleteClosest(transform.position)) { food++; }
-        return;
+        if(type == "plant")
+        {
+            if (plantManager.DeletePlant(thing, transform.position)) {
+                food++;
+                return true;
+            }
+        }
+        return false;
     }
 
-    bool SniffFood()
+    GameObject returnClosest(List<GameObject> things)
     {
-        List<Vector2> plants = Smell();
+        GameObject closest = things[0];
+        Vector2 shortest = getRelLocation(things[0]);
+        foreach(GameObject thing in things)
+        {
+            Vector2 relLocation = getRelLocation(thing);
+            if (relLocation.magnitude < shortest.magnitude)
+            {
+                closest = thing;
+                shortest = relLocation;
+            }
+        }
+        return closest;
+    }
+
+    float Vector2Angle(Vector2 vec)
+    {
+        float newAngle = Mathf.Acos(vec.normalized.x);
+        if (vec.y < 0) { newAngle = -newAngle; } //need y to uniquely determine angle.
+        return newAngle;
+    }
+
+    void MoveTowards(Vector2 relLoc)
+    {
+        transform.position += speed * (Vector3) relLoc.normalized;
+        angle = Vector2Angle(relLoc);
+    }
+
+    void MoveAwayFrom(Vector2 location)
+    {
+        transform.position -= speed * (Vector3) location.normalized;
+        angle = Vector2Angle(location);
+
+    }
+
+    void MoveAdjacentTo(Vector2 location)
+    {
+        Vector2 Adjacent = new Vector2(location.y, location.x * -1);
+        transform.position += speed * (Vector3) Adjacent.normalized;
+        angle = Vector2Angle(location);
+    }
+
+
+
+    bool SniffFood(string type)
+    {
+        List<GameObject> plants = Smell(plantManager.plants);
         if(plants.Count == 0) return false;
-        Vector2 closest = plants[0];
-        foreach(Vector2 plant in plants)
+        GameObject closest = returnClosest(plants);
+        Vector2 relLoc = getRelLocation(closest);
+        if (relLoc.magnitude > 0.1)
         {
-            if (plant.magnitude < closest.magnitude)
-            {
-                closest = plant;
-            }
-        }
-        if (closest.magnitude > 0.1)
-        {
-            transform.position += speed * (Vector3) closest.normalized;
-            float newAngle = Mathf.Acos(closest.normalized.x);
-            if (closest.y < 0) { newAngle = -newAngle; } //need y to uniquely determine angle.
-            angle = newAngle;
+            MoveTowards(relLoc);
         }
         else{
-            Eat();
+            Eat(type, closest);
         }
         return true;
 
     }
+
+
 
     void Reproduce()
     {
@@ -93,15 +175,49 @@ public class CreatureBehavior : MonoBehaviour
         creatureManager.DeleteCreature(gameObject);
     }
 
+    void Wander()
+    {
+        transform.position += speed * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle));
+        angle += Random.Range(-angleChange/ (speed *100), angleChange / (speed * 100));
+    }
+
+    Vector2 getAveAngle()
+    {
+        Vector2 sum = new Vector2(0, 0);
+        for(int i = 0; i < touching.Count; i++)
+        {
+            if(touching[i] == null) touching.RemoveAt(i);
+            else sum += getRelLocation(touching[i]);
+        }
+        return sum.normalized;
+    }
+
+    void SpaceOut()
+    {
+        MoveAdjacentTo(getAveAngle());
+    }
+
     void Prioritize1()
     {
-        if (food >= full) { Reproduce(); }
+        if (food >= thriftiness) { Reproduce(); }
         else
         {
-            if (!SniffFood())
+            if (!SniffFood("plant"))
             {
-                transform.position += speed * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle));
-                angle += Random.Range(-angleChange/ (speed *100), angleChange / (speed * 100));
+                Wander();
+            }
+        }
+    }
+
+    void Prioritize2()
+    {
+        if (food >= thriftiness) { Reproduce(); }
+        else
+        {
+            if(touching.Count != 0) SpaceOut();
+            else if (!SniffFood("plant"))
+            {
+                Wander();
             }
         }
     }
