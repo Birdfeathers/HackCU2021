@@ -128,20 +128,26 @@ public class CreatureBehavior : MonoBehaviour
         angle = Vector2Angle(relLoc);
     }
 
-    void MoveAwayFrom(Vector2 location)
+    void MoveAwayFrom(Vector2 relLoc)
     {
-        transform.position -= speed * (Vector3) location.normalized;
-        angle = Vector2Angle(location);
+        transform.position -= speed * (Vector3) relLoc.normalized;
+        angle = Vector2Angle(relLoc * -1);
 
     }
 
-    void MoveAdjacentTo(Vector2 location)
+    void MoveAdjacentTo(Vector2 relLoc)
     {
-        Vector2 Adjacent = new Vector2(location.y, location.x * -1);
+        Vector2 Adjacent = new Vector2(relLoc.y, relLoc.x * -1);
         transform.position += speed * (Vector3) Adjacent.normalized;
-        angle = Vector2Angle(location);
+        angle = Vector2Angle(Adjacent);
     }
 
+    bool isBlocked(Vector2 target, float distance)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, target, distance);
+        if(hit.collider != null) return true;
+        return false;
+    }
 
 
     bool SniffFood(string type)
@@ -159,6 +165,24 @@ public class CreatureBehavior : MonoBehaviour
         }
         return true;
 
+    }
+
+    bool SniffFood2(string type)
+    {
+        List<GameObject> plants = Smell(plantManager.plants);
+        if(plants.Count == 0) return false;
+        GameObject closest = returnClosest(plants);
+        Vector2 relLoc = getRelLocation(closest);
+        if (relLoc.magnitude > 0.1)
+        {
+            float size = transform.localScale.x * .6f;
+            if(touching.Count == 0 || !isBlocked(relLoc, size)) MoveTowards(relLoc);
+            else SpaceOut();
+        }
+        else{
+            Eat(type, closest);
+        }
+        return true;
     }
 
 
@@ -214,8 +238,8 @@ public class CreatureBehavior : MonoBehaviour
         if (food >= thriftiness) { Reproduce(); }
         else
         {
-            if(touching.Count != 0) SpaceOut();
-            else if (!SniffFood("plant"))
+            // if(touching.Count != 0) SpaceOut();
+            if(!SniffFood2("plant"))
             {
                 Wander();
             }
